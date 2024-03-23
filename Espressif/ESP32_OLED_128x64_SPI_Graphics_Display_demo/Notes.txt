@@ -1,0 +1,1 @@
+This sketch works, the example SPI sketch in the SSD1306 section of Arduino IDE examples does not I think because the SPI pin config is wrong? 

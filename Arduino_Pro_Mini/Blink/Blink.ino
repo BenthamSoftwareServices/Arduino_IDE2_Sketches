@@ -1,0 +1,17 @@
+/*
+  Blink
+
+ */
+
+int pinled = 9;                // declares variable pinled = to digital pin 9 i.e. Pin1 on PortB
+
+void setup() {
+  pinMode(pinled, OUTPUT);     // initialize digital pin 9 as an output.
+ }
+
+void loop() {
+  digitalWrite(pinled, HIGH);  // turn the LED on (HIGH is the voltage level)
+  delay(1000);                 // delay
+  digitalWrite(pinled, LOW);   // turn the LED off by making the voltage LOW
+  delay(1000);                  // delay
+}

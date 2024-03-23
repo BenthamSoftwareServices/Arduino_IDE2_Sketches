@@ -1,0 +1,53 @@
+// simple project using Arduino UNO and 16x2 character display to display smooth gauge, 
+// created by upir, 2022
+// youtube channel: https://www.youtube.com/upir_upir
+
+// FULL TUTORIAL: https://youtu.be/ZzIGHiHObYw 
+// GAUGE IN 11 MINUTES TUTORIAL: https://youtu.be/upE17NHrdPc
+
+// Links related to this project:
+// Arduino UNO - https://s.click.aliexpress.com/e/_AXDw1h
+// Arduino breadboard prototyping shield - https://s.click.aliexpress.com/e/_ApbCwx
+// 16x2 displays with IIC - https://s.click.aliexpress.com/e/_9Hl3JV
+// 16x2 display with RGB backlight - https://s.click.aliexpress.com/e/_9wgpeb
+// original sketch from YWROBOT - https://wokwi.com/arduino/libraries/LiquidCrystal_I2C/HelloWorld
+// character creator - https://tusindfryd.github.io/screenduino/
+// another character creator - https://maxpromer.github.io/LCD-Character-Creator/
+// sprintf explanation - https://www.programmingelectronics.com/sprintf-arduino/
+// custom characters simplest project - https://wokwi.com/projects/294395602645549578
+// Arduino I2C scanner - https://playground.arduino.cc/Main/I2cScanner/
+// 16x2 available characters - https://docs.wokwi.com/parts/wokwi-lcd1602#font
+// Bitwise Operators in GIFs - https://blog.wokwi.com/bitwise-operators-in-gifs/
+// Bitwise operators Arduino documentation - https://www.arduino.cc/reference/en/language/structure/bitwise-operators/bitshiftleft/
+
+// Organising your code with multiple tabs and h files = https://www.youtube.com/watch?v=PWMOb85OGY0
+
+/*-----( Import needed libraries )-----*/
+
+// How to use includes = https://www.arduino.cc/reference/en/language/structure/further-syntax/include/
+
+#include "LCDhelper.h" //local file
+
+#include <Wire.h> // Library file
+#include <hd44780.h> // Library file, main hd44780 header
+#include <hd44780ioClass/hd44780_I2Cexp.h>  // Library file, i2c expander i/o class header
+
+/*-----( Declare Constants )-----*/
+// LCD geometry
+const int LCD_COLS = 16;
+const int LCD_ROWS = 2;
+
+/*-----( Declare objects )-----*/
+//hd44780_I2Cexp lcd;  // declare lcd object: auto locate & auto config expander chip, otherwise specify lcd address as below:
+ hd44780_I2Cexp lcd(0x27);
+// if you don´t know the I2C address of the display, use I2C scanner first (https://playground.arduino.cc/Main/I2cScanner/)
+
+void setup()
+{
+  
+}
+
+void loop()
+{
+  
+}
