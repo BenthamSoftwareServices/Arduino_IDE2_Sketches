@@ -8,7 +8,7 @@ const int ledPinBlue = PIN_PA3;    // Pin 3 Port A
 const int ledPinYellow = PIN_PB2;  // Pin 2 Port B (TXD)
 
 void setDefaultPinStates() {
-  pinMode(ledPinBlue, OUTPUT);       //set as output
+  pinMode(ledPinBlue, OUTPUT);       // set as output
   pinMode(ledPinYellow, OUTPUT);     //set as output
   digitalWrite(ledPinBlue, HIGH);    //start with LED off
   digitalWrite(ledPinYellow, HIGH);  //start with LED off
