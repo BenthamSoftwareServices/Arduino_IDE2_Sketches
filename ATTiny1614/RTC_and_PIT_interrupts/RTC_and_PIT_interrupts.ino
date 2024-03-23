@@ -15,8 +15,8 @@ void setDefaultPinStates() {
 }
 
 void setup() {
-  cli(); //Disables all interrupts by clearing the global interrupt mask, which is reset from reset anyway..
-  setDefaultPinStates();  //run function
+  cli(); // Disables all interrupts by clearing the global interrupt mask, which is reset from reset anyway..
+  setDefaultPinStates();  // run function
   F_CPU_init();           // reconfigure CPU clock prescaler
 
   //Configure clock source used by both PIT and RTC
