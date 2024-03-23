@@ -3,6 +3,7 @@
 
 // MCU pin definitions
 // Important - always use the full pin definition i.e. PXn where X is the port letter and n the pin number
+
 const int ledPinBlue = PIN_PA3; // Pin 3 Port A
 
 
