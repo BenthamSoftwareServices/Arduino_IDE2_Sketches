@@ -11,7 +11,7 @@ void setDefaultPinStates() {
   pinMode(ledPinBlue, OUTPUT);       // set as output
   pinMode(ledPinYellow, OUTPUT);     // set as output
   digitalWrite(ledPinBlue, HIGH);    // start with LED off
-  digitalWrite(ledPinYellow, HIGH);  //start with LED off
+  digitalWrite(ledPinYellow, HIGH);  // start with LED off
 }
 
 void setup() {
