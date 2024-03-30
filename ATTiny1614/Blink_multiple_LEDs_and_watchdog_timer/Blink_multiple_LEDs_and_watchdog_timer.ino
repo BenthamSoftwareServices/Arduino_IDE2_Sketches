@@ -47,11 +47,11 @@ void setDefaultPinStates() {
 
 void setup() {
   setDefaultPinStates(); //run function
-  // Configure watchdog timer
+  // Configure watchdog timer, for more info see: "E:\Cloud Storage\Dropbox\Personal\Electronics\MCUs & Peripherals\Atmel - Microchip\CPUs\ATTiny - UPDI\ATTiny1614\Using the Watchdog timer.docx"
   //wdt_enable(reset_timeout); //Enable watchdog timer to reset MCU after reset_timer seconds, unless timer is reset before timeout period
   //wdt_enable(WDTO_2S); // Valid options are: WDTO_15MS, WDTO_30MS, WDTO_60MS, WDTO_120MS, WDTO_250MS, WDTO_500MS, WDTO_1S & WDTO_2S
   //wdt_enable(WDT_PERIOD_8KCLK_gc);
-  _PROTECTED_WRITE(WDT.CTRLA,WDT_PERIOD_4KCLK_gc); // no window, 8 seconds
+  _PROTECTED_WRITE(WDT.CTRLA,WDT_PERIOD_4KCLK_gc); // no window, 4 seconds
   
   delay (1000);
 }
