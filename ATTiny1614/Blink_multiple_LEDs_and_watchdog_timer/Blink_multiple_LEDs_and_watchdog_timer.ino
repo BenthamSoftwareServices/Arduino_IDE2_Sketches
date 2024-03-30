@@ -1,7 +1,7 @@
 // Blink LEDs on an ATTiny1614 MCU, also includes code to configure and use the watchdog timer to reset the MCU in case of failure.
 // The MCU clock speed can be configured via TOOLS > CLOCK > xMHz, faster reduces the loop execution time but has no effect on the millis function.
 
-#include <avr/wdt.h> // Include the watchdog timer library
+//#include <avr/wdt.h> // Include the watchdog timer library
 
 // MCU pin definitions
 // Important - always use the full pin definition i.e. PXn where X is the port letter and n the pin number
@@ -25,7 +25,7 @@ const int loopFrequency = PIN_PB1;// Pin 1 Port B, used to measure loop frequenc
 0xB 8KCLK  8s
 other - Reserved
 */
-const uint8_t reset_timeout = 0xB; //8-bit unsigned integer, maximum timeout is 8 seconds
+//const uint8_t reset_timeout = 0xB; //8-bit unsigned integer, maximum timeout is 8 seconds
 
 // Variable definitions
 unsigned int A = 888; //dividend
@@ -48,8 +48,11 @@ void setDefaultPinStates() {
 void setup() {
   setDefaultPinStates(); //run function
   // Configure watchdog timer
-  wdt_enable(reset_timeout); //Enable watchdog timer to reset MCU after reset_timer seconds, unless timer is reset before timeout period
-  //wdt_enable(WDTO_2S); Valid options are: WDTO_15MS, WDTO_30MS, WDTO_60MS, WDTO_120MS, WDTO_250MS, WDTO_500MS, WDTO_1S & WDTO_2S
+  //wdt_enable(reset_timeout); //Enable watchdog timer to reset MCU after reset_timer seconds, unless timer is reset before timeout period
+  //wdt_enable(WDTO_2S); // Valid options are: WDTO_15MS, WDTO_30MS, WDTO_60MS, WDTO_120MS, WDTO_250MS, WDTO_500MS, WDTO_1S & WDTO_2S
+  //wdt_enable(WDT_PERIOD_8KCLK_gc);
+  _PROTECTED_WRITE(WDT.CTRLA,WDT_PERIOD_4KCLK_gc); // no window, 8 seconds
+  
   delay (1000);
 }
 
@@ -66,11 +69,13 @@ void loop() {
 
   digitalWrite(loopFrequency, !digitalRead(loopFrequency)); //when enables the loop time can be viewed on pin PB1 using an oscilloscope
 
-// Simulate a condition where the code gets stuck, which prevents the watchdog timer from being reset
-  //while (1) {
+//Simulate a condition where the code gets stuck, which prevents the watchdog timer from being reset
+  while (1) {
 // This loop will execute indefinitely, causing the code to hang
-  //}
+  }
 
   // Reset the watchdog timer
-  wdt_reset();  //Reset watchdog timer to avoid reseting the MCU
+  __asm__ __volatile__ ("wdr"::);
+  //wdt_reset();  //Reset watchdog timer to avoid reseting the MCU
 }
+
