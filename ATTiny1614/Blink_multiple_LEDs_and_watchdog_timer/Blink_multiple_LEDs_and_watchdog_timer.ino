@@ -67,7 +67,7 @@ void loop() {
   digitalWrite(ledPinYellow, millis() % C > D);
   digitalWrite(ledPinGreen, millis() % E > F);
 
-  digitalWrite(loopFrequency, !digitalRead(loopFrequency)); //when enables the loop time can be viewed on pin PB1 using an oscilloscope
+  digitalWrite(loopFrequency, !digitalRead(loopFrequency)); //when enabled the loop time can be viewed on pin PB1 using an oscilloscope
 
 //Simulate a condition where the code gets stuck, which prevents the watchdog timer from being reset
   while (1) {

@@ -1,7 +1,8 @@
 /*
-See: https://forum.arduino.cc/t/attiny1614-timer-b-issue/1216822
-Sketch uses macros from the header file iotn1614.h, which can be viewed by right clicking
-e.g. RTC_PER = 300; is a macro and is the same as directly writing to the register using RTC.PER = 300;
+Flashes two LEDs on the ATTiny1614 SIR BOARD ATTiny1614 using both PIT (Periodic Interrupt Timer) and RTC (Real-Time Counter)
+For description of both PIT (Periodic Interrupt Timer) and RTC (Real-Time Counter) see page 294 of datasheet at: https://docs.rs-online.com/8b07/A700000008685672.pdf
+See: https://forum.arduino.cc/t/attiny1614-timer-b-issue/1216822 for background info
+Sketch uses macros from the header file iotn1614.h, which can be viewed by right clicking e.g. RTC_PER = 300; is a macro and is the same as directly writing to the register using RTC.PER = 300;
 */
 
 const int ledPinBlue = PIN_PA3;    // Pin 3 Port A
@@ -15,24 +16,24 @@ void setDefaultPinStates() {
 }
 
 void setup() {
-  cli(); // Disables all interrupts by clearing the global interrupt mask, which is reset from reset anyway..
+  cli();                  // Disables all interrupts by clearing the global interrupt mask, which is reset from reset anyway..
   setDefaultPinStates();  // run function
   F_CPU_init();           // reconfigure CPU clock prescaler
 
-  //Configure clock source used by both PIT and RTC
+  //Configure clock source used by both PIT (Periodic Interrupt Timer) and RTC (Real-Time Counter)
   //RTC_CLKSEL = RTC_CLKSEL_INT32K_gc; /* Internal 32kHz OSC */
   RTC_CLKSEL = RTC_CLKSEL_INT1K_gc; /* Internal 1kHz OSC */
 
-  //Configure RTC
+  //Configure RTC (Real-Time Counter)
   while (RTC_STATUS & RTC_PERBUSY_bm) {}  // wait until RTC_PER is available for writing
   RTC_PER = 300;                          // write period (16bit) to period register using built-in macro, or write directly to register using RTC.PER = 100;
                                           // i.e. using 1KHz (=1mS) internal oscillator an interrupt will be triggered every 100mS
-  RTC_INTCTRL |= RTC_OVF_bm;  // activate overflow interrupts
-  RTC_CTRLA |= RTC_RTCEN_bm;  // turn on RTC by setting bit 0 in Control Reg A (CTRLA) to a 1 by performing bitwise OR between CTRLA and RTC_RTCEN_bm defined as 0x01
+  RTC_INTCTRL |= RTC_OVF_bm;              // activate overflow interrupts
+  RTC_CTRLA |= RTC_RTCEN_bm;              // enable RTC by setting bit 0 in Control Reg A (CTRLA) to a 1 by performing bitwise OR between CTRLA and RTC_RTCEN_bm defined as 0x01 to flash Blue LED
 
-  //Configure PIT
-  RTC_PITINTCTRL |= RTC_PI_bm;                           // activate PIT Interrupt enable
-  RTC_PITCTRLA |= RTC_PERIOD_CYC1024_gc | RTC_PITEN_bm;  // set PIT period and enable
+  //Configure PIT (Periodic Interrupt Timer)
+  RTC_PITINTCTRL |= RTC_PI_bm;                          // activate PIT Interrupt enable
+  RTC_PITCTRLA |= RTC_PERIOD_CYC512_gc | RTC_PITEN_bm;  // set PIT period and enable to flash the Yellow LED
   // The Realtimer-Counter (RTC) has its own 32,768KHz ultra Low-Power (ULP) internal RC oscillator, accuracy +/- 30% over full voltage/temp range.
   // 32.768KHz / CYCprescale = periodtime in mS
   //
